@@ -1,0 +1,18 @@
+services:
+  bot:
+    build: .
+    container_name: botn
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN:?укажите BOT_TOKEN в .env}
+      OWNER_IDS: ${OWNER_IDS:?укажите OWNER_IDS в .env}
+      DB_PATH: /data/bot.db
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      USER_GREETING: ${USER_GREETING:-}
+    volumes:
+      - ./data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
